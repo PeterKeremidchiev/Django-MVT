@@ -1,0 +1,10 @@
+from django.contrib import admin
+
+from djangoBasics101.tasks.models import Task
+
+
+# Register your models here.
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'description')
+
