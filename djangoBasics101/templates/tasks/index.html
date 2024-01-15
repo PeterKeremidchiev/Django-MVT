@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    {% if tasks_count == 0 %}
+        <h2>No tasks</h2>
+    {% else %}
+        <h2>Tasks: {{ tasks_count }}</h2>
+    {% endif %}
+
+    <form action="/" method="get">
+        <input
+                type="text"
+                name="title_filter" #imeto na kliucha ot context dict
+                value="{{ title_filter }}" #zapazva predishnoto tursene i go pokazva
+                placeholder="Enter filter"
+        />
+        <button>Filter</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <h2>{{ task.title }}</h2>
+                <p>{{ task.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
