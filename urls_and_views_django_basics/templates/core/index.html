@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Core</title>
+</head>
+<style>
+    h1 {
+        color: red;
+        background-color: aqua;
+        width: 450px;
+    }
+    li {
+        width: 300px;
+    }
+    li:nth-child(odd) {
+        background-color: #ccc;
+    }
+    li:nth-child(even) {
+        background-color: bisque;
+    }
+</style>
+<body>
+<h1>hello customer with name:{{ name }}</h1>
+<ul>
+    <li>Requested name: {{ name }}</li>
+    <li>Requested path: {{ path }}</li>
+</ul>
+</body>
+</html>
