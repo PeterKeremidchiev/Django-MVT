@@ -1,0 +1,99 @@
+{% load static %}
+{#{% extends 'base.html' %}#}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+<img height="250" src="{% static 'imgs/pic.jpg' %}" alt="a pic">
+{% block content %}
+    <ul>
+        <p>{{ title }}</p>
+        {% for employee in employees %}
+            <li>
+                {{ employee }}
+            </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for employee in employees %}
+            {% if employee|length > 5 %}
+                <li>
+                    {{ employee|upper }}
+                </li>
+            {% else %}
+                <li>
+                    {{ employee|lower }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>The date now is: {{ date|date:'D d M Y' }}</h2>
+    <hr>
+    <a href="{% url 'employee_details' pk=10 %}">Go to employee with id 10</a>
+    <hr>
+    {%  if director %}
+        <p>{{ director.first_name }}</p>
+        <p>{{ director.last_name }}</p>
+        <p>{{ director.age }}</p>
+    {%  else %}
+        <p>No director</p>
+    {%  endif %}
+    <hr>
+    <h3>Objects</h3>
+    <h4>New person</h4>
+    <ul type="none">
+        <li>first_name: {{ person_object.first_name }}</li>
+        <li>last_name: {{ person_object.last_name }}</li>
+        <li>age: {{ person_object.age }}</li>
+    </ul>
+    <hr>
+    <h3>Filters</h3>
+    <p>{{ person_object.first_name|truncatechars:4 }}</p>
+    <p>{{ person_object.age|default:"No age" }}</p>
+    <p>{{ director|length }}</p>
+    <p>{{ employees|join:", " }}</p>
+    <hr>
+    <h2>for, for-empty</h2>
+    <ul>
+        {% for employee in employees %}
+            {% if employee|length > 4 %}
+                <li class="too-long">
+                    <strong>{{ employee }}</strong>
+                </li>
+            {% else %}
+                <li class="short">
+                    {{ employee }}
+                </li>
+
+            {% endif %}
+        {% empty %}
+            <p class="warning">
+                No employees
+            </p>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for employee in employees %}
+            <li>
+                {{ employee }}
+            </li>
+        {% empty %}
+            <li class="warning">No employees</li>
+        {% endfor %}
+    </ul>
+    <hr></hr>
+    <h3>Tokens</h3>
+    {{ csrf_token }}
+    <hr>
+    {% lorem 3 b %}
+{% endblock %}
+{#</body>#}
+{#</html>#}
