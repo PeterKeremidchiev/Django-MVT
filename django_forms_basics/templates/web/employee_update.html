@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee update</title>
+</head>
+<body>
+<form action="{% url 'update_employee' pk=employee.pk %}" method="post">
+    {{ form.as_p }}
+    <button>Update</button>
+    {% csrf_token %}
+</form>
+</body>
+</html>
