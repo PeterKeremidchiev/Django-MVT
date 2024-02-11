@@ -1,0 +1,7 @@
+
+<form action="{% url 'update_person' pk=person.pk %}" method="post"
+    enctype="multipart/form-data">
+    {{ update_form.as_p }}
+    {% csrf_token %}
+    <button>Update</button>
+</form>
