@@ -1,0 +1,11 @@
+li a {
+    text-decoration: none;
+}
+
+li a:hover {
+    color: red;
+}
+
+nav ul li {
+    display: inline-block;
+}
