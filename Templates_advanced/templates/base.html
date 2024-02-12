@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base app</title>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<header>
+   {% include 'partials/navbar.html' %}
+</header>
+{% block main_content %}
+{% endblock %}
+
+{% include 'partials/footer.html' %}
+</body>
+</html>
