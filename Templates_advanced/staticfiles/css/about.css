@@ -1,0 +1,13 @@
+h1, h2, h3, h4 {
+    color: blue;
+    border-bottom: 1px solid black;
+}
+
+footer {
+    background: #ccc;
+}
+
+.text-area-container {
+    display: flex;
+    flex-direction: column;
+}
