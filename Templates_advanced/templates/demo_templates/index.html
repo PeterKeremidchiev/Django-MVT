@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load number_filters %}
+{% block styles %}
+{% endblock %}
+{% block main_content %}
+<h2>This is my dog:</h2>
+    <img class="corgi-img" src="{% static 'images/corgi.jpg' %}" alt="corgi" width="300px" height="300px">
+
+<h4>Select one of the numbers which are bellow 10:</h4>
+    {{ numbers|less_than }}
+<h4>Select one of these numbers:</h4>
+    {{ numbers|only_even }}
+{% endblock %}
