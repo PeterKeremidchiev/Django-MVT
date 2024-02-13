@@ -1,0 +1,19 @@
+{% load static %}
+{% load custom_tags %}
+{% include 'partials/navbar.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+<h3>Here i will tell you more about my  corgi dog:</h3>
+<div class="text-area-container">
+    <label for="dog-words">Type in free text:</label>
+    <textarea name="dog-words" id="dog-words" cols="30" rows="10">
+        This breed of dog is my favourite one....</textarea>
+</div>
+<div>
+    {% list_of names %}
+</div>
+<p>{% current_time %}</p>
+{% include 'partials/footer.html' %}
