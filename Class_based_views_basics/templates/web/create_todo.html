@@ -1,0 +1,12 @@
+<form action="#" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Send</button>
+</form>
+
+{% for activity in todo_list %}
+    <li><strong>{{ activity.title }}</strong></li>
+    <li><strong>{{ activity.deadline }}</strong></li>
+    <li><strong>{{ activity.category }}</strong></li>
+    <hr>
+{% endfor %}

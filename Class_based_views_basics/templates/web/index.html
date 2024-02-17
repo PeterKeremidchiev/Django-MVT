@@ -1,0 +1,13 @@
+<h1>{{ title }}</h1>
+
+
+{% for todo in todo_list %}
+    <li><strong>{{ todo.title }}-{{ todo.deadline }}-{{ todo.date_created }}</strong></li>
+{% endfor %}
+
+
+<h2>Static context time</h2>
+{{ static_time|time:"H:i:s"  }}
+<hr>
+<h2>Dynamic context time</h2>
+{{ dynamic_time|time:"H:i:s" }}
