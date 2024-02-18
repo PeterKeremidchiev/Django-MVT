@@ -10,7 +10,11 @@ class Pet(models.Model):
         null=False,
         blank=False,
     )
-    personal_photo = models.URLField()
+    personal_photo = models.URLField(
+        null=False,
+        blank=False,
+    )
+
     date_of_birth = models.DateField(
         null=True,
         blank=True,
