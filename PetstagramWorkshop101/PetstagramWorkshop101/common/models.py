@@ -10,5 +10,8 @@ class Comment(models.Model):
     date_time_of_publication = models.DateTimeField(auto_now_add=True)
     to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='comments')
 
+    class Meta:
+        ordering = ['-date_time_of_publication']
+
 class Like(models.Model):
     to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
