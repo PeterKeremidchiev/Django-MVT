@@ -1,12 +1,14 @@
+from django.conf.urls.static import static
 from django.urls import path, include
 
-from PetstagramWorkshop101.pets.views import create_pet, pet_details, pet_edit, pet_delete
+from django.conf import settings
+from PetstagramWorkshop101.pets.views import CreatePetView, DetailsPetView, EditPetView, DeletePetView
 
-urlpatterns = (
-    path('add/', create_pet, name='create-pet'),
+urlpatterns = [
+    path('add/', CreatePetView.as_view(), name='create-pet'),
     path('<str:username>/pet/<slug:pet_slug>/', include([
-        path('', pet_details, name='pet-details'),
-        path('edit/', pet_edit, name='pet-edit'),
-        path('delete/', pet_delete, name='pet-delete'),
+        path('', DetailsPetView.as_view(), name='pet-details'),
+        path('edit/', EditPetView.as_view(), name='pet-edit'),
+        path('delete/', DeletePetView.as_view(), name='pet-delete'),
     ]))
-)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
