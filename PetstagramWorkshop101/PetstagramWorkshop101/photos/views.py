@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy, reverse
+from django.views import generic as views
 from django.shortcuts import render, redirect
 
 from PetstagramWorkshop101.common.forms import CommentForm
@@ -5,50 +7,50 @@ from PetstagramWorkshop101.photos.forms import PhotoCreateForm, PhotoEditForm
 from PetstagramWorkshop101.photos.models import Photo
 
 
-# Create your views her
+class CreatePhotoView(views.CreateView):
+    queryset = Photo.objects.all() \
+        .prefetch_related("pets")
+    form_class = PhotoCreateForm
+    template_name = 'photos/photo-add-page.html'
+    # success_url = reverse_lazy('home')
 
-# Create your views here.
-def add_photo_page(request):
-    form = PhotoCreateForm(request.POST or None, request.FILES or None)
+    def get_success_url(self):
+        return reverse("photo-details", kwargs={
+            "pk": self.object.pk,
+        })
 
-    if form.is_valid():
-        form.save()
-        return redirect('home')
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
 
-    context = {
-        'form': form,
-    }
+        form.instance.user = self.request.user
+        return form
 
-    return render(request, 'photos/photo-add-page.html', context)
+class DetailsPhotoView(views.DetailView):
+    model = Photo
+    template_name = 'photos/photo-details-page.html'
+    context_object_name = 'pet_photo'
+    pk_url_kwarg = 'pk'
 
+    def get_object(self, queryset=None):
+        return Photo.objects.get(pk=self.kwargs['pk'])
 
-def photo_details_page(request, pk):
-    photo = Photo.objects.get(pk=pk)
-    comments = photo.comments.all()
-    form = CommentForm(request.POST or None)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.all()
+        context['comment_form'] = CommentForm
+        return context
 
-    context = {
-        'pet_photo': photo,
-        'comments': comments,
-        'comment_form': form,
-    }
+class EditPhotoView(views.UpdateView):
+    model = Photo
+    form_class = PhotoEditForm
+    template_name = 'photos/photo-edit-page.html'
+    pk_url_kwarg = 'pk'
+    context_object_name = 'photo'
 
-    return render(request, 'photos/photo-details-page.html', context)
-
-
-def edit_photo_page(request, pk):
-    form = PhotoEditForm(request.POST or None, request.FILES or None)
-    photo = Photo.objects.get(pk=pk)
-    if form.is_valid():
-        form.save()
-        return redirect('photo-details')
-
-    context = {
-        'form': form,
-        'photo': photo,
-    }
-
-    return render(request, 'photos/photo-edit-page.html', context)
+    def get_success_url(self):
+        return reverse("photo-details", kwargs={
+            "pk": self.object.pk,
+        })
 
 def photo_delete(request, photo_id):
     photo = Photo.objects.filter(pk=photo_id).first()
